@@ -1,4 +1,3 @@
-import Test from "../Middlewares/Test.ts";
 import HttpKernel from "Illuminate/Foundation/Http/HttpKernel";
 import VerifyCsrf from "../Middlewares/VerifyCsrf.ts";
 class Kernel extends HttpKernel {
@@ -7,9 +6,7 @@ class Kernel extends HttpKernel {
     api: [],
   };
 
-  protected override routeMiddleware = {
-    test: Test,
-  };
+  protected override routeMiddleware = {};
 }
 
 export default Kernel;
