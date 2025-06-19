@@ -3,12 +3,14 @@
 const [cmd, name] = Deno.args;
 
 if (!cmd || !name) {
-  console.error("Usage: deno run create.ts project <name>");
+  console.error(
+    "Usage: deno run -A https://honovel.deno.dev/ create-project <name>"
+  );
   Deno.exit(1);
 }
 
-if (cmd !== "project") {
-  console.error("Only 'project' is supported.");
+if (cmd !== "create-project") {
+  console.error("Only 'create-project' is supported.");
   Deno.exit(1);
 }
 
