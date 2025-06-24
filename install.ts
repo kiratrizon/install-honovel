@@ -1,15 +1,15 @@
 #!/usr/bin/env -S deno run -A
 
-const [cmd, name] = Deno.args;
+const [name] = Deno.args;
 
-if (!cmd || !name) {
+if (!name) {
   console.error(
-    "Usage: deno run -A https://honovel.deno.dev/ create-project <name>"
+    "Usage: deno run -A https://honovel.deno.dev/create-project <name>"
   );
   Deno.exit(1);
 }
 
-if (cmd !== "create-project") {
+if (name !== "create-project") {
   console.error("Only 'create-project' is supported.");
   Deno.exit(1);
 }
@@ -21,4 +21,7 @@ const p = new Deno.Command("git", {
   stderr: "inherit",
 });
 const { code } = await p.output();
+
+console.log(`cd ${name}`);
+console.log("deno task dev");
 Deno.exit(code);
