@@ -9,8 +9,8 @@ if (!name) {
   Deno.exit(1);
 }
 
-if (name !== "create-project") {
-  console.error("Only 'create-project' is supported.");
+if (!name) {
+  console.error("Please provide a name for the project.");
   Deno.exit(1);
 }
 
