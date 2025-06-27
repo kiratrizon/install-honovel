@@ -26,13 +26,11 @@ const clone = new Deno.Command("git", {
   stdout: "inherit",
   stderr: "inherit",
 });
-const status = await clone.spawn();
-const { code } = await status.output();
-if (code !== 0) {
-  console.error(
-    "❌ Failed to clone repository. Please check the repository URL and branch."
-  );
-  Deno.exit(code);
+const child = clone.spawn();
+const status = await child.status;
+if (status.code !== 0) {
+  console.error("❌ Git clone failed with code", status.code);
+  Deno.exit(status.code);
 }
 
 // Step 2: Remove .git
