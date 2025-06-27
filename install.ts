@@ -9,19 +9,22 @@ if (!name) {
   Deno.exit(1);
 }
 
-if (!name) {
-  console.error("Please provide a name for the project.");
-  Deno.exit(1);
-}
-
 const repo = "https://github.com/kiratrizon/deno-honovel.git";
-const p = new Deno.Command("git", {
+
+// Clone the repo
+const clone = new Deno.Command("git", {
   args: ["clone", repo, name],
   stdout: "inherit",
   stderr: "inherit",
 });
-const { code } = await p.output();
+const { code } = await clone.output();
 
-console.log(`cd ${name}`);
-console.log("deno task dev");
-Deno.exit(code);
+if (code !== 0) {
+  Deno.exit(code);
+}
+
+// Remove .git directory
+await Deno.remove(`${name}/.git`, { recursive: true });
+
+console.log(`\nProject created in: ${name}`);
+console.log(`\nNext steps:\n  cd ${name}\n  deno task dev`);
