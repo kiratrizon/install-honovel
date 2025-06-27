@@ -26,5 +26,26 @@ if (code !== 0) {
 // Remove .git directory
 await Deno.remove(`${name}/.git`, { recursive: true });
 
+// Step 3: Copy .env.example to .env if exists
+const envExamplePath = `${name}/.env.example`;
+const envPath = `${name}/.env`;
+
+try {
+  await Deno.stat(envExamplePath);
+  await Deno.copyFile(envExamplePath, envPath);
+} catch {
+  // .env.example does not exist, do nothing
+}
+
+// Step 4: Migrate the project
+
+const migrate = new Deno.Command("./honovel", {
+  args: ["migrate"],
+  cwd: name,
+  stdout: "inherit",
+  stderr: "inherit",
+});
+await migrate.output();
+
 console.log(`\nProject created in: ${name}`);
 console.log(`\nNext steps:\n  cd ${name}\n  deno task dev`);
