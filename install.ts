@@ -26,8 +26,7 @@ const clone = new Deno.Command("git", {
   stdout: "inherit",
   stderr: "inherit",
 });
-const { code } = await clone.output();
-if (code !== 0) Deno.exit(code);
+await clone.output();
 
 // Step 2: Remove .git
 console.log("🧹 Removing .git...");
