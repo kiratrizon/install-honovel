@@ -4,6 +4,8 @@ const args = Deno.args;
 
 const [name, version = "latest"] = args[0]?.split("@") || [];
 
+console.log(Deno.cwd());
+console.log(args);
 if (!name) {
   console.error(
     "Usage: deno run -A https://honovel.deno.dev/create-project <name>@<version>\n" +
