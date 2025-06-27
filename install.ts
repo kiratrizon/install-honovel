@@ -51,7 +51,7 @@ try {
 
 // Step 4: Migrate project using `honovel`
 console.log("🚀 Running migration...");
-const honovelPath = `./${name}/honovel`;
+const honovelPath = `./${name}/novel`;
 
 try {
   await Deno.chmod(honovelPath, 0o755);
