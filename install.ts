@@ -34,11 +34,11 @@ if (code !== 0) {
 }
 
 // Remove .git directory
-await Deno.remove(`${name}/.git`, { recursive: true });
+await Deno.remove(`./${name}/.git`, { recursive: true });
 
 // Step 3: Copy .env.example to .env if exists
-const envExamplePath = `${name}/.env.example`;
-const envPath = `${name}/.env`;
+const envExamplePath = `./${name}/.env.example`;
+const envPath = `./${name}/.env`;
 
 try {
   await Deno.stat(envExamplePath);
