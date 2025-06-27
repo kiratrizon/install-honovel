@@ -1,19 +1,29 @@
 #!/usr/bin/env -S deno run -A
 
-const [name] = Deno.args;
+const args = Deno.args;
+
+const [name, version = "latest"] = args[0]?.split("@") || [];
 
 if (!name) {
   console.error(
-    "Usage: deno run -A https://honovel.deno.dev/create-project <name>"
+    "Usage: deno run -A https://honovel.deno.dev/create-project <name>@<version>"
   );
   Deno.exit(1);
 }
 
 const repo = "https://github.com/kiratrizon/deno-honovel.git";
 
-// Clone the repo
+// Map 'latest' to 'master'
+const branch = version === "latest" ? "master" : version;
+
+const cloneArgs = ["clone"];
+if (branch) {
+  cloneArgs.push("--branch", branch);
+}
+cloneArgs.push(repo, name);
+
 const clone = new Deno.Command("git", {
-  args: ["clone", repo, name],
+  args: cloneArgs,
   stdout: "inherit",
   stderr: "inherit",
 });
